@@ -1,0 +1,10 @@
+services:
+  travel-booking-public-production:
+    build:
+      context: ../../
+      dockerfile: docker/Dockerfile
+    image: travel-booking-public-production:latest
+    ports:
+      - "3000:3000"
+    env_file:
+      - ../../.env
