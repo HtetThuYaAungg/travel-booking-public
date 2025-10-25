@@ -11,7 +11,7 @@ export function SearchSection() {
       title: "Hotels",
       description: "Find the perfect place to stay",
       href: "/hotels",
-      color: "bg-blue-500",
+      color: "bg-active",
     },
     {
       icon: Plane,
@@ -55,8 +55,7 @@ export function SearchSection() {
                   {option.description}
                 </p>
                 <Button 
-                  variant="outline" 
-                  className="w-full"
+                  className="w-full bg-active/80 hover:bg-active/90 text-white"
                   onClick={() => window.location.href = option.href}
                 >
                   Explore {option.title}

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/app/contexts/AuthContext";
 import { useLogout } from "@/api-config/queries/auth";
 import { GoogleLoginButton } from "@/components/google-login-button";
+import { NavUser } from "./nav-user";
 
 export function PublicHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,7 +34,7 @@ export function PublicHeader() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-active">
                 TravelBooking
               </div>
             </Link>
@@ -45,7 +46,7 @@ export function PublicHeader() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-primary hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+                className="text-primary hover:text-active px-3 py-2 text-sm font-medium transition-colors"
               >
                 {item.name}
               </Link>
@@ -54,17 +55,7 @@ export function PublicHeader() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-primary">Welcome!</span>
-                <Button variant="outline" size="sm" onClick={handleLogout}>
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Logout
-                </Button>
-              </div>
-            ) : (
-              <GoogleLoginButton size="sm" variant="outline" />
-            )}
+            <NavUser />
           </div>
 
           {/* Mobile menu button */}
@@ -91,26 +82,31 @@ export function PublicHeader() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-primary hover:text-blue-600 block px-3 py-2 text-base font-medium"
+                  className="text-primary hover:text-active block px-3 py-2 text-base font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-               <div className="pt-4 space-y-2">
-                 <Button variant="outline" size="sm" className="w-full">
-                   <Search className="w-4 h-4 mr-2" />
-                   Search
-                 </Button>
-                 {isAuthenticated ? (
-                   <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
-                     <LogOut className="w-4 h-4 mr-2" />
-                     Logout
-                   </Button>
-                 ) : (
-                   <GoogleLoginButton size="sm" variant="outline" className="w-full" />
-                 )}
-               </div>
+              <div className="pt-4 space-y-2">
+                {isAuthenticated ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    onClick={handleLogout}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </Button>
+                ) : (
+                  <GoogleLoginButton
+                    size="sm"
+                    variant="outline"
+                    className="w-full"
+                  />
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -118,4 +114,3 @@ export function PublicHeader() {
     </header>
   );
 }
-

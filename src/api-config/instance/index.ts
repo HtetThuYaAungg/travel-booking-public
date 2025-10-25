@@ -9,6 +9,13 @@ import {
 } from "@/helper/store";
 import { logout } from "../services/auth";
 
+// Global logout callback to communicate with AuthContext
+let globalLogoutCallback: (() => void) | null = null;
+
+export const setLogoutCallback = (callback: () => void) => {
+  globalLogoutCallback = callback;
+};
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3002";
 const USER_TOKEN_KEY = process.env.NEXT_PUBLIC_USER_ACCESS_TOKEN as string;
 const REFRESH_TOKEN_KEY = process.env.NEXT_PUBLIC_USER_REFRESH_TOKEN as string;
@@ -54,7 +61,7 @@ const refreshAccessToken = async (): Promise<{
       };
       timestamp: string;
     }> = await axios.post(
-      `${BASE_URL}/user/refresh-token`,
+      `${BASE_URL}/user/refresh-token-google`,
       { refreshToken },
       { withCredentials: true }
     );
@@ -74,10 +81,19 @@ const handleUnauthorizedError = async (error: any) => {
     originalRequest._retry = true; 
 
     const result = await refreshAccessToken();
-    if (!result || result.statusCode !== 201) {
+    console.log("result", result);
+    if (!result || result.statusCode !== 201 || result === null) {
+      console.log("Token refresh failed, logging out");
       await logout();
       removeCookieStore(USER_TOKEN_KEY);
       removeCookieStore(REFRESH_TOKEN_KEY);
+      
+      // Call the global logout callback to update AuthContext
+      if (globalLogoutCallback) {
+        globalLogoutCallback();
+      }
+      
+      console.log("logout completed");
       // window.location.href = "/login";
       return;
     }

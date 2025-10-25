@@ -12,6 +12,7 @@ import { Slider } from "@/components/ui/slider";
 import { MapPin, Wifi, Car, Utensils, Dumbbell } from "lucide-react";
 import { useState } from "react";
 import hotelFilterSchema, { HotelFilterValues } from "../schema/filter-hotel";
+import { defaultPageNo, defaultPageSize } from "@/lib/constants";
 
 interface HotelFilterProps {
   filter: Record<string, string | number | boolean>;
@@ -40,8 +41,8 @@ export function HotelFilter({ filter, setFilter }: HotelFilterProps) {
       has_pet_friendly: false,
       sort_by: "",
       sort_order: "asc",
-      page: 1,
-      limit: 10,
+      page: defaultPageNo,
+      limit: defaultPageSize,
     },
   });
 
@@ -50,8 +51,8 @@ export function HotelFilter({ filter, setFilter }: HotelFilterProps) {
     console.log(data);
     // Convert form data to filter object
     const newFilter: Record<string, string | number | boolean> = {
-      page: 1, // Reset to first page when filtering
-      limit: filter.limit || 10,
+      page: defaultPageNo, // Reset to first page when filtering
+      limit: filter.limit || defaultPageSize,
     };
 
     // Add non-empty values to filter
@@ -74,8 +75,8 @@ export function HotelFilter({ filter, setFilter }: HotelFilterProps) {
   const handleReset = () => {
     form.reset();
     setFilter({
-      page: 1,
-      limit: filter.limit || 10,
+      page: defaultPageNo,
+      limit: filter.limit || defaultPageSize,
     });
     setIsFilterActive(false);
   };
@@ -253,7 +254,7 @@ export function HotelFilter({ filter, setFilter }: HotelFilterProps) {
 
               {/* Action Buttons */}
               <div className="space-y-2">
-                <Button type="submit" className="w-full bg-active">
+                <Button type="submit" className="w-full bg-active/80 hover:bg-active/90 text-white">
                   Apply Filters
                 </Button>
                 <Button type="button" variant="outline" className="w-full" onClick={handleReset}>

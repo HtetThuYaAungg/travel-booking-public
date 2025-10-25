@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
+import { LogIn, User } from "lucide-react";
 import { useGoogleLogin } from "@/api-config/queries/auth";
+import Image from "next/image";
 
 interface GoogleLoginButtonProps {
   size?: "sm" | "lg" | "default" | "icon";
@@ -19,6 +20,7 @@ export function GoogleLoginButton({
 }: GoogleLoginButtonProps) {
   const googleLoginMutation = useGoogleLogin();
 
+
   const handleGoogleLogin = () => {
     // Redirect to Google login endpoint
     const callbackUrl = encodeURIComponent(`${window.location.origin}/auth/callback`);
@@ -32,9 +34,11 @@ export function GoogleLoginButton({
       onClick={handleGoogleLogin}
       disabled={googleLoginMutation.isPending}
       className={className}
+      style={{
+        backgroundImage: "url('/logo/hero-bg.png')",
+      }}
     >
-      <User className="w-4 h-4 mr-2" />
-      {children || (googleLoginMutation.isPending ? "Signing in..." : "Sign in with Google")}
+      {children || (googleLoginMutation.isPending ? "Signing in..." : "Login")}
     </Button>
   );
 }

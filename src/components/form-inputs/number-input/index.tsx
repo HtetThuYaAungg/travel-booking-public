@@ -192,7 +192,7 @@ export const NumberInput = ({
                   variant="ghost"
                   disabled={isDisabled || isMaxReached}
                   onClick={handleIncrement}
-                  className={`${currentSize.button} rounded-r-xl rounded-l-none border border-muted bg-gradient-to-r from-background to-background/95 hover:from-background/95 hover:to-background text-green-600 hover:text-green-700 disabled:from-background/90 disabled:to-background disabled:text-gray-400 transition-all duration-200`}
+                  className={`${currentSize.button} rounded-r-xl rounded-l-none border border-muted bg-gradient-to-r from-background to-background/95 hover:from-background/95 hover:to-background text-active/90 hover:text-active disabled:from-background/90 disabled:to-background disabled:text-gray-400 transition-all duration-200`}
                 >
                   <Plus className="h-4 w-4" />
                 </Button>

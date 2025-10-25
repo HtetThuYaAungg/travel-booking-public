@@ -6,6 +6,7 @@ export async function googleLogin() {
 }
 
 export async function logout() {
+  console.log("logout function called");
   return apiInstance.post("/auth/logout-google");
 }
 

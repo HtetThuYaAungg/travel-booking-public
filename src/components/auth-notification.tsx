@@ -58,8 +58,8 @@ export function AuthNotification() {
         className={`
           w-[420px] p-4 rounded-lg shadow-lg border-l-4 transition-all duration-300 ease-in-out
           ${type === "success" 
-            ? "bg-green-50 border-green-500 shadow-green-100" 
-            : "bg-red-50 border-red-500 shadow-red-100"
+            ? "bg-green-50 border-active shadow-green-100" 
+            : "bg-red-50 border-active shadow-red-100"
           }
         `}
         style={{
@@ -69,7 +69,7 @@ export function AuthNotification() {
         <div className="flex items-start">
           <div className="flex-shrink-0">
             {type === "success" ? (
-              <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+              <CheckCircle className="h-5 w-5 text-active mt-0.5" />
             ) : (
               <XCircle className="h-5 w-5 text-red-600 mt-0.5" />
             )}
@@ -79,12 +79,12 @@ export function AuthNotification() {
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <h4 className={`text-sm font-medium ${
-                  type === "success" ? "text-green-800" : "text-red-800"
+                  type === "success" ? "text-active" : "text-red-800"
                 }`}>
                   {message}
                 </h4>
                 <p className={`text-sm mt-1 ${
-                  type === "success" ? "text-green-700" : "text-red-700"
+                  type === "success" ? "text-active" : "text-red-700"
                 }`}>
                   {description}
                 </p>
@@ -94,7 +94,7 @@ export function AuthNotification() {
                 onClick={() => setShow(false)}
                 className={`ml-4 flex-shrink-0 p-1 rounded-full hover:bg-opacity-20 transition-colors ${
                   type === "success" 
-                    ? "text-green-600 hover:bg-green-200" 
+                    ? "text-active hover:bg-active/20" 
                     : "text-red-600 hover:bg-red-200"
                 }`}
               >
