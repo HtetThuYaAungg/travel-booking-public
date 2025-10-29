@@ -1,81 +1,77 @@
 "use client";
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Plane, Calendar, Users, Search } from "lucide-react";
+import React, { useState } from "react";
+import { FlightList } from "@/app/(root)/flights/components/flight-list";
+import { defaultPageNo, defaultPageSize } from "@/lib/constants";
+import FlightFilters from "./components/flight-filters";
 
 export default function FlightsPage() {
+  const [filter, setFilter] = useState<
+    Record<string, string | number | boolean>
+  >({
+    page: defaultPageNo,
+    limit: defaultPageSize,
+  });
+
+  const handleSearch = (searchData: {
+    departure: string;
+    arrival: string;
+    departureDate: string;
+    returnDate?: string;
+    passengers: number;
+  }) => {
+    const newFilter: Record<string, string | number | boolean> = {
+      page: defaultPageNo,
+      limit: defaultPageSize,
+    };
+
+    if (searchData.departure) {
+      newFilter.departure_airport_code = searchData.departure;
+    }
+    if (searchData.arrival) {
+      newFilter.arrival_airport_code = searchData.arrival;
+    }
+    if (searchData.departureDate) {
+      newFilter.departure_date = searchData.departureDate;
+    }
+    if (searchData.returnDate) {
+      newFilter.arrival_date = searchData.returnDate;
+    }
+    if (searchData.passengers) {
+      newFilter.passengers = searchData.passengers;
+    }
+
+    setFilter(newFilter);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-4">Find Your Perfect Flight</h1>
-          <p className="text-xl text-green-100">
+      <div
+        className="text-white py-16 relative"
+        style={{ backgroundImage: "url(/logo/hero-bg.png)" }}
+      >
+        <div className="absolute inset-0 bg-black opacity-30"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl font-bold mb-4 text-active">
+            Find Your Perfect Flight
+          </h1>
+          <p className="text-xl text-primary">
             Book flights to destinations around the world
           </p>
         </div>
       </div>
 
-      {/* Search Section */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Card>
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="relative">
-                  <Plane className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <Input
-                    type="text"
-                    placeholder="From"
-                    className="pl-10"
-                  />
-                </div>
-                
-                <div className="relative">
-                  <Plane className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <Input
-                    type="text"
-                    placeholder="To"
-                    className="pl-10"
-                  />
-                </div>
-                
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <Input
-                    type="date"
-                    placeholder="Departure Date"
-                    className="pl-10"
-                  />
-                </div>
-                
-                <Button className="bg-green-600 hover:bg-green-700 text-white">
-                  <Search className="w-5 h-5 mr-2" />
-                  Search Flights
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Coming Soon */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center">
-          <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Plane className="w-12 h-12 text-green-600" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Filters Sidebar */}
+          <div className="lg:w-2/6">
+            <FlightFilters filter={filter} setFilter={setFilter} />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Flight Booking Coming Soon
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            We're working on bringing you the best flight booking experience. Stay tuned!
-          </p>
-          <Button variant="outline" size="lg">
-            Get Notified
-          </Button>
+
+          {/* Flights List */}
+          <div className="lg:w-4/6">
+            <FlightList filter={filter} setFilter={setFilter} />
+          </div>
         </div>
       </div>
     </div>

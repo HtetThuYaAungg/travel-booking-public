@@ -1,18 +1,15 @@
-
-
-export const permissionKey = {
-  all: ["permission"] as const,
-  userPermission: ["user-permission"] as const,
-  detail: (id: string | null) => [...permissionKey.all, id, "detail"] as const,
-  filters: (filters: Record<string, string | number>) =>
-    [...permissionKey.all, "list", ...Object.values(filters)] as const,
+export const hotelKey = {
+  all: ["hotels"] as const,
+  filters: (filters: Record<string, any>) => [...hotelKey.all, "filters", filters] as const,
+  detail: (id: string | null) => [...hotelKey.all, "detail", id] as const,
+  popular: (limit: number) => [...hotelKey.all, "popular", limit] as const,
+  booking_list: ["hotel-bookings"] as const,
 };
 
-export const hotelKey = {
-  all: ["hotel"] as const,
-  detail: (id: string | null) => [...hotelKey.all, id, "detail"] as const,
-  filters: (filters: Record<string, string | number>) =>
-    [...hotelKey.all, "list", ...Object.values(filters)] as const,
-  popular: (limit: number) => [...hotelKey.all, "popular", limit] as const,
-  booking_list: ["booking-list"] as const,
+export const flightKey = {
+  all: ["flights"] as const,
+  filters: (filters: Record<string, any>) => [...flightKey.all, "filters", filters] as const,
+  detail: (id: string | null) => [...flightKey.all, "detail", id] as const,
+  popular: (limit: number) => [...flightKey.all, "popular", limit] as const,
+  booking_list: ["flight-bookings"] as const,
 };

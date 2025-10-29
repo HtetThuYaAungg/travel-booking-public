@@ -66,14 +66,14 @@ export function NavUser() {
             className="items-center data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
             <div className="flex items-center gap-2">
-              <Avatar className="h-5 w-5 rounded-lg group-first:hover:text-active">
+              <Avatar className="h-7 w-7 rounded-lg group-first:hover:text-active">
                 {isAuthenticated && user?.avatar_url ? (
                   <Image 
                     src={user.avatar_url} 
                     alt="user avatar" 
-                    width={20} 
-                    height={20}
-                    className="rounded-lg object-cover"
+                    width={30} 
+                    height={30}
+                    className="rounded-full object-cover cursor-pointer"
                   />
                 ) : (
                  <GoogleIcon />

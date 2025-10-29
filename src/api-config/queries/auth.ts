@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPermission, logout, googleLogin } from "../services/auth";
-import { permissionKey } from "./key";
 import { removeCookieStore } from "@/helper/store";
 import { useSearchParams } from "next/navigation";
 
@@ -43,13 +42,13 @@ export const useLogout = () => {
   });
 };
 
-export function useGetPermissionByUser(id: string | number) {
-  return useQuery({
-    queryKey: permissionKey.userPermission,
-    queryFn: () => getPermission(),
-    enabled : !!id,
-    staleTime: 1000 * 60 * 10,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-}
+// export function useGetPermissionByUser(id: string | number) {
+//   return useQuery({
+//     queryKey: authKey.userPermission,
+//     queryFn: () => getPermission(),
+//     enabled : !!id,
+//     staleTime: 1000 * 60 * 10,
+//     refetchOnMount: false,
+//     refetchOnWindowFocus: false,
+//   });
+// }
