@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getPermission, logout, googleLogin } from "../services/auth";
 import { removeCookieStore } from "@/helper/store";
-import { useSearchParams } from "next/navigation";
 
 
 export function useGoogleLogin() {

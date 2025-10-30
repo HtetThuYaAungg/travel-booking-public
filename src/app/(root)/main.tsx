@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { PublicHeader } from "@/components/public-header";
 import { PublicFooter } from "@/components/public-footer";
 import { AuthNotification } from "@/components/auth-notification";
@@ -16,7 +16,9 @@ const Main = ({
         {children}
       </main>
       <PublicFooter />
-      <AuthNotification />
+      <Suspense fallback={null}>
+        <AuthNotification />
+      </Suspense>
     </div>
   );
 };
